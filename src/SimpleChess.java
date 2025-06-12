@@ -13,6 +13,7 @@ public class SimpleChess {
         }
 
         board[0][0] = " R ";
+        board[0][1] = " N ";
 
         while (true) {
             printBoard(board);
@@ -40,7 +41,7 @@ public class SimpleChess {
     }
 
     public static void printBoard(String[][] board) {
-        System.out.println("   0 1 2 3 4 5 6 7");
+        System.out.println("    0  1  2  3  4  5  6  7");
         for (int row = 0; row < 8; row++) {
             System.out.print(row + "  ");
             for (int col = 0; col < 8; col++) {
@@ -50,11 +51,27 @@ public class SimpleChess {
         }
     }
 
+
+    public static boolean isKnightMove(int fromRow, int fromCol, int toRow, int toCol) {
+        return (Math.abs(toRow - fromRow) == 2 && Math.abs(toCol - fromCol) == 1) ||
+        (Math.abs(toRow - fromRow) == 1 && Math.abs(toCol - fromCol) == 2);
+    }
+
     public static boolean isValid(int fromRow, int fromCol, int toRow, int toCol, String[][] board) {
-        if (fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 ||
-                toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
+        if(fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
             return false;
         }
-        return !board[fromRow][fromCol].equals(" . ") && board[toRow][toCol].equals(" . ");
+
+        if(board[fromRow] [fromCol].equals(" . ") || !board[toRow][toCol].equals(" . ")) {
+            return false;
+        }
+
+        String piece = board[fromRow][fromCol].trim();
+
+        if(piece.equals("N")) {
+            return isKnightMove(fromRow, fromCol, toRow, toCol);
+        }
+        return  false;
     }
+
 }
