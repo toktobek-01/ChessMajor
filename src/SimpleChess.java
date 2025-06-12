@@ -71,7 +71,16 @@ public class SimpleChess {
         if(piece.equals("N")) {
             return isKnightMove(fromRow, fromCol, toRow, toCol);
         }
+        else if (piece.equals("R")) {
+            return isRookMove(fromRow, fromCol, toRow, toCol);
+        }
         return  false;
     }
+
+    public static boolean isRookMove(int fromRow, int fromCol, int toRow, int toCol) {
+        // Rook moves in a straight line: same row or same column
+        return (fromRow == toRow || fromCol == toCol);
+    }
+
 
 }
